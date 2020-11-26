@@ -1,0 +1,79 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ENTITY testbench_sipo IS
+END testbench_sipo;
+
+ARCHITECTURE behavior OF testbench_sipo IS
+
+    -- Component Declaration for the Unit Under Test (UUT)
+    COMPONENT sipo
+    PORT(
+         res : IN  std_logic;
+         sin : IN  std_logic;
+         clk : IN  std_logic;
+         pout : OUT  std_logic_vector(7 downto 0)
+        );
+    END COMPONENT;
+   --Inputs
+   signal res : std_logic := '0';
+   signal sin : std_logic := '0';
+   signal clk : std_logic := '0';
+
+            --Outputs
+   signal pout : std_logic_vector(7 downto 0);
+
+   -- Clock period definitions
+   constant clk_period : time := 50 ns;
+
+BEGIN
+            -- Instantiate the Unit Under Test (UUT)
+   uut: sipo PORT MAP (
+          res => res,
+          sin => sin,
+          clk => clk,
+          pout => pout
+        );
+
+   -- Clock process definitions
+   clk_process :process
+   begin
+                        clk <= '0';
+                        wait for clk_period/2;
+                        clk <= '1';
+                        wait for clk_period/2;
+   end process;
+
+   -- Stimulus process
+   stim_proc: process
+   begin                       
+            sin<='0';
+      wait for 50 ns;      
+sin<='0';
+      wait for 50 ns;      
+sin<='1';
+      wait for 50 ns;      
+sin<='1';
+      wait for 50 ns;      
+sin<='0';
+      wait for 50 ns;      
+sin<='1';
+      wait for 50 ns;      
+sin<='0';
+      wait for 50 ns;      
+sin<='1';
+      wait for 50 ns;      
+sin<='0';
+      wait for 50 ns;      
+                        sin<='1';
+      wait for 50 ns;
+sin<='1';
+      wait for 50 ns;      
+		
+sin<='0';
+      wait for 50 ns;                              
+sin<='0';
+      wait for 50 ns;      
+wait;
+      wait;
+   end process;
+END;
